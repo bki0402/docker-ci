@@ -1,0 +1,27 @@
+name: GitActions-Demo4-Manual-Input
+
+on:
+  workflow_dispatch: # GitHub UI에서 수동으로 워크플로우를 실행할 수 있게 함
+    inputs:
+      greeting:
+        description: '인사말을 입력하세요'
+        required: true
+        default: '안녕하세요'
+      name:
+        description: '이름을 입력하세요'
+        required: false # 필수가 아닌 입력값
+
+jobs:
+  greet-user:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display greeting
+        run: |
+          echo "입력된 인사말: ${{ github.event.inputs.greeting }}"
+          echo "입력된 이름: ${{ github.event.inputs.name }}"
+          
+          if [[ -n "${{ github.event.inputs.name }}" ]]; then
+            echo "${{ github.event.inputs.greeting }}, ${{ github.event.inputs.name }}님!"
+          else
+            echo "${{ github.event.inputs.greeting }}!"
+          fi
