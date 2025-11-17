@@ -1,0 +1,13 @@
+name: GitActions-Demo3
+on:
+  schedule:
+    - cron: '0 04 * * *'
+jobs:
+  check-time:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report current time
+        run:
+          echo "This workflow ran on a schedule!"
+          echo "Current UTC time:" $(date -u)"
+          echo "Current local time (on runner): $(date)"
